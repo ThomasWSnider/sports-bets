@@ -123,19 +123,45 @@ const players = [
   },
 ]
 
-function draftTeams() {
-  players.forEach((player) => {
-    const randomTeamIndex = Math.ceil(Math.random() * 2)
-    player.teamNumber = randomTeamIndex
-    // console.log(`Drafting Teams! ${player.teamNumber}`)
+function startBattle() {
+
+  let team1Skill = 0
+  let team2Skill = 0
+
+  players.filter((player) => {
+    if (player.teamNumber == 1)
+      team1Skill += player.skill
+
+    else {
+      team2Skill += player.skill
+    }
   })
-  drawTeams
+
+  if (team1Skill > team2Skill) {
+    console.log('The Cornish Game Hens Win!');
+  }
+  else if (team1Skill < team2Skill) {
+    console.log('The Quetzelcoatallamas Win!');
+  }
+  else {
+    console.log("It's a Draw!");
+  }
+
+  draftTeams()
 }
 
 function betTeamOne() {
   if (bank >= 1)
     bank -= 1
   drawBank()
+}
+
+function draftTeams() {
+  players.forEach((player) => {
+    const randomTeamIndex = Math.ceil(Math.random() * 2)
+    player.teamNumber = randomTeamIndex
+  })
+  drawTeams()
 }
 
 function drawTeam(teamNum) {
@@ -160,4 +186,3 @@ function drawBank() {
 
 drawBank()
 draftTeams()
-drawTeams()

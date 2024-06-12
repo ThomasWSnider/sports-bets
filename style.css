@@ -10,13 +10,13 @@ body {
 }
 
 .team-one-border {
-  height: 3em;
+  min-height: 3em;
   width: auto;
   border: 3px solid var(--border-one);
 }
 
 .team-two-border {
-  height: 3em;
+  min-height: 3em;
   width: auto;
   border: 3px solid var(--border-two);
 }
