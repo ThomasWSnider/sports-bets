@@ -1,0 +1,22 @@
+:root {
+  --background: darkslategray;
+  --border-one: #AEC6CF;
+  --border-two: #FF6961;
+}
+
+
+body {
+  background-color: var(--background);
+}
+
+.team-one-border {
+  height: 3em;
+  width: auto;
+  border: 3px solid var(--border-one);
+}
+
+.team-two-border {
+  height: 3em;
+  width: auto;
+  border: 3px solid var(--border-two);
+}
