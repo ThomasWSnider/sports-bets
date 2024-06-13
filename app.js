@@ -1,5 +1,7 @@
 let bank = 100
 
+let profit = 0
+
 const pots = [
   {
     name: 'pot 1',
@@ -178,10 +180,12 @@ function returnWinnings(teamNumber) {
       bank += pot.value
     }
   })
+
   pots.forEach((pot) => {
     pot.value = 0
   })
   drawBank()
+  drawProfits()
 }
 
 function makeBet(betAmount, potNumber) {
@@ -227,13 +231,19 @@ function drawTeams() {
   drawTeam(2)
 }
 
+function drawProfits() {
+  const profitTotal = document.getElementById('currentProfit')
+  profit = bank
+  profit -= 100
+  profitTotal.innerText = `$${profit.toFixed(2)}`
+}
+
 function drawBank() {
   const bankElement = document.getElementById('bankAccount')
   bankElement.innerText = `Account Balance: $${bank.toFixed(2)}`
 
   const pot1Element = document.getElementById('pot1Account')
   const pot2Element = document.getElementById('pot2Account')
-
   pots.filter((pot) => {
     if (pot.teamNumber == 1) {
       pot1Element.innerText = `Amount Bet: $${pot.value.toFixed(2)}`
@@ -244,9 +254,19 @@ function drawBank() {
       }
     }
   })
+}
 
-
+function resetGame() {
+  bank = 100
+  profit = 0
+  pots.forEach((pot) => {
+    pot.value = 0
+  })
+  drawBank()
+  draftTeams()
+  drawProfits()
 }
 
 drawBank()
 draftTeams()
+drawProfits()
