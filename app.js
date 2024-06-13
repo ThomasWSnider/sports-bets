@@ -1,8 +1,17 @@
 let bank = 100
 
-let pot1 = 0
-
-let pot2 = 0
+const pots = [
+  {
+    name: 'pot 1',
+    teamNumber: 1,
+    value: 0
+  },
+  {
+    name: 'pot 2',
+    teamNumber: 2,
+    value: 0
+  }
+]
 
 const players = [
   {
@@ -143,32 +152,38 @@ function startBattle() {
   })
 
   if (team1Skill > team2Skill) {
-    console.log('The Cornish Game Hens Win!');
+    pots.filter((pot) => {
+      if (pot.teamNumber == 1) {
+        pot.value * 2
+        bank += pot.value
+      }
+    })
   }
-  else if (team1Skill < team2Skill) {
-    console.log('The Quetzelcoatallamas Win!');
+  if (team1Skill < team2Skill) {
+    pots.filter((pot) => {
+      if (pot.teamNumber == 2) {
+        pot.value * 2
+        bank += pot.value
+      }
+    })
+    if (team1Skill == team2Skill) {
+      console.log("It's a Draw!");
+    }
   }
-  else {
-    console.log("It's a Draw!");
-  }
+
 
   draftTeams()
 }
 
-function betTeam(betAmount, potNumber) {
-  if (bank >= betAmount)
-    bank -= betAmount
-  potNumber += betAmount
-  console.log(pot1, pot2);
+function makeBet(betAmount, potNumber) {
+  pots.filter((pot) => {
+    if (pot.name == potNumber && bank >= betAmount) {
+      bank -= betAmount
+      pot.value += betAmount
+    }
+  })
   drawBank()
 }
-// function betTeam2(betAmount) {
-//   if (bank >= 1)
-//     bank -= 1
-//   pot2 += 1
-//   drawBank()
-// }
-
 
 function draftTeams() {
   players.forEach((player) => {
@@ -198,10 +213,20 @@ function drawBank() {
   bankElement.innerText = `Account Balance: $${bank.toFixed(2)}`
 
   const pot1Element = document.getElementById('pot1Account')
-  pot1Element.innerText = `Amount Bet: $${pot1.toFixed(2)}`
-
   const pot2Element = document.getElementById('pot2Account')
-  pot2Element.innerText = `Amount Bet: $${pot2.toFixed(2)}`
+
+  pots.filter((pot) => {
+    if (pot.teamNumber == 1) {
+      pot1Element.innerText = `Amount Bet: $${pot.value.toFixed(2)}`
+    }
+    else {
+      if (pot.teamNumber == 2) {
+        pot2Element.innerText = `Amount Bet: $${pot.value.toFixed(2)}`
+      }
+    }
+  })
+
+
 }
 
 drawBank()
