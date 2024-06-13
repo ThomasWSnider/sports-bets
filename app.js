@@ -155,10 +155,14 @@ function startBattle() {
   if (team1Skill > team2Skill) {
     console.log('The Cornish Game Hens Win!');
     returnWinnings(1)
+    team1Element.innerText = "👑"
+    team2Element.innerText = ``
   }
   else if (team1Skill < team2Skill) {
     console.log('The Quetzelcoatallamas Win!');
     returnWinnings(2)
+    team2Element.innerText = "👑"
+    team1Element.innerText = ``
   }
   else {
     console.log("It's a Draw!");
@@ -185,6 +189,16 @@ function makeBet(betAmount, potNumber) {
     if (pot.name == potNumber && bank >= betAmount) {
       bank -= betAmount
       pot.value += betAmount
+    }
+  })
+  drawBank()
+}
+
+function betAll(potNumber) {
+  pots.filter((pot) => {
+    if (pot.teamNumber == potNumber) {
+      pot.value += bank
+      bank -= bank
     }
   })
   drawBank()
