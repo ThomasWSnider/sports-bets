@@ -138,41 +138,46 @@ const players = [
 
 
 function startBattle() {
-
   let team1Skill = 0
   let team2Skill = 0
+  const team1Element = document.getElementById('teamName1')
+  const team2Element = document.getElementById('teamName2')
 
   players.filter((player) => {
-    if (player.teamNumber == 1)
+    if (player.teamNumber == 1) {
       team1Skill += player.skill
-
+    }
     else {
       team2Skill += player.skill
     }
   })
 
   if (team1Skill > team2Skill) {
-    pots.filter((pot) => {
-      if (pot.teamNumber == 1) {
-        pot.value * 2
-        bank += pot.value
-      }
-    })
+    console.log('The Cornish Game Hens Win!');
+    returnWinnings(1)
   }
-  if (team1Skill < team2Skill) {
-    pots.filter((pot) => {
-      if (pot.teamNumber == 2) {
-        pot.value * 2
-        bank += pot.value
-      }
-    })
-    if (team1Skill == team2Skill) {
-      console.log("It's a Draw!");
-    }
+  else if (team1Skill < team2Skill) {
+    console.log('The Quetzelcoatallamas Win!');
+    returnWinnings(2)
   }
-
+  else {
+    console.log("It's a Draw!");
+  }
 
   draftTeams()
+}
+
+function returnWinnings(teamNumber) {
+  pots.filter((pot) => {
+    if (pot.teamNumber == teamNumber) {
+      pot.value *= 2
+      bank += pot.value
+    }
+  })
+  pots.forEach((pot) => {
+    pot.value = 0
+  })
+  drawBank()
 }
 
 function makeBet(betAmount, potNumber) {

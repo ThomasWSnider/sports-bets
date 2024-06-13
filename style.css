@@ -24,3 +24,19 @@ body {
 .btn-outline {
   border: 1px solid black;
 }
+
+
+
+@media screen and (max-width: 1200px) {
+  .team-one-border {
+    min-height: 5em;
+    width: auto;
+    border: 3px solid var(--border-one);
+  }
+
+  .team-two-border {
+    min-height: 5em;
+    width: auto;
+    border: 3px solid var(--border-two);
+  }
+}
