@@ -1,5 +1,9 @@
 let bank = 100
 
+let pot1 = 0
+
+let pot2 = 0
+
 const players = [
   {
     name: "D'Marcus Williums",
@@ -123,6 +127,7 @@ const players = [
   },
 ]
 
+
 function startBattle() {
 
   let team1Skill = 0
@@ -150,11 +155,20 @@ function startBattle() {
   draftTeams()
 }
 
-function betTeamOne() {
-  if (bank >= 1)
-    bank -= 1
+function betTeam(betAmount, potNumber) {
+  if (bank >= betAmount)
+    bank -= betAmount
+  potNumber += betAmount
+  console.log(pot1, pot2);
   drawBank()
 }
+// function betTeam2(betAmount) {
+//   if (bank >= 1)
+//     bank -= 1
+//   pot2 += 1
+//   drawBank()
+// }
+
 
 function draftTeams() {
   players.forEach((player) => {
@@ -182,6 +196,12 @@ function drawTeams() {
 function drawBank() {
   const bankElement = document.getElementById('bankAccount')
   bankElement.innerText = `Account Balance: $${bank.toFixed(2)}`
+
+  const pot1Element = document.getElementById('pot1Account')
+  pot1Element.innerText = `Amount Bet: $${pot1.toFixed(2)}`
+
+  const pot2Element = document.getElementById('pot2Account')
+  pot2Element.innerText = `Amount Bet: $${pot2.toFixed(2)}`
 }
 
 drawBank()
